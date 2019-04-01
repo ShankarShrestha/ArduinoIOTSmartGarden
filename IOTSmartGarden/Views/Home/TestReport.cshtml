@@ -1,0 +1,45 @@
+﻿@model IOTSmartGarden.Models.EmbededConfig
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://npmcdn.com/es6-promise@3.2.1"></script>
+<script src="~/scripts/powerbi.js"></script>
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div id="errorWrapper">
+        <h2>
+            Error
+        </h2>
+        @Model.ErrorMessage
+    </div>
+
+    return;
+}
+
+
+<div id="dashboardContainer"></div>
+
+<script>
+
+    var accessToken = "@Model.EmbedToken.Token";
+
+    var embedUrl = "@Html.Raw(Model.EmbedUrl)";
+
+    var embedDashboardId = "@Model.Id";
+
+    var models = window['powerbi-client'].models;
+
+
+    var config = {
+        type: 'dashboard',
+        tokenType: models.TokenType.Embed,
+        accessToken: accessToken,
+        embedUrl: embedUrl,
+        id: embedDashboardId
+    };
+    
+    var dashboardContainer = $('#dashboardContainer')[0];
+
+    var dashboard = powerbi.embed(dashboardContainer, config);
+</script>

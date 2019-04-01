@@ -35,10 +35,10 @@ namespace IOTSmartGarden.Controllers
 
         // register application as native.
 
-        public async Task<ActionResult> MainReport(string username, string roles)
+        public async Task<ActionResult> TestReport(string username, string roles)
         {
-            string GroupId = "";
-            string ReportId = "";
+            string GroupId = "me";
+            string ReportId = "0400c967-973f-43ad-9959-1868e548e0ac";
             var result = new EmbededConfig();
             try
             {
@@ -124,7 +124,8 @@ namespace IOTSmartGarden.Controllers
             }
             catch (HttpOperationException exc)
             {
-                result.ErrorMessage = string.Format("Status: {0} ({1})\r\nResponse: {2}\r\nRequestId: {3}", exc.Response.StatusCode, (int)exc.Response.StatusCode, exc.Response.Content, exc.Response.Headers["RequestId"].FirstOrDefault());
+                result.ErrorMessage = string.Format("Status: {0} ({1})\r\nResponse: {2}\r\nRequestId: {3}", exc.Response.StatusCode, 
+                    (int)exc.Response.StatusCode, exc.Response.Content, exc.Response.Headers["RequestId"].FirstOrDefault());
             }
             catch (Exception exc)
             {
